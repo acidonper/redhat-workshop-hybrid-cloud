@@ -1,0 +1,7 @@
+name: redhat-workshop-hybrid-cloud
+title: "Red Hat Workshop - Hybrid Cloud App Deployment"
+version: master
+nav:
+  - modules/ROOT/nav.adoc
+
+start_page: ROOT:index.adoc

@@ -1,0 +1,32 @@
+= Welcome to Red Hat Workshop - Hybrid Cloud App Deployment
+:page-layout: home
+:!sectids:
+
+[.text-center.strong]
+== Introduction
+
+_Red Hat Workshop Hybrid Cloud Application Deployment_ is a repository which includes a tutorial with a set of practices for the purpose of practicing with Kubernetes Native Application deployments in multi clouds.
+
+The general idea behind this workshop is to get an initial understanding of the following points:
+
+- Create an application in Red Hat CodeReady Workspaces
+- Push a container image in Quay
+- Create and Deploy microservice-based applications in Kubernetes using Helm
+- Operate applications in multi Openshift clusters using Red Hat Advanced Cluster Management in a GitOps model
+
+[.text-center.strong]
+== Get Started
+
+First of all, it is required to review your local machine prerequisites and laboratory environment access in order to be able to start working on this tutorial.
+
+Please, follow xref:01-setup.adoc[Get Started] for more information.
+
+[.text-center.strong]
+== Tutorial Steps
+
+=== Create an application in Red Hat CodeReady Workspaces
+
+In this step, you will create an application in Red Hat CodeReady Workspaces deployed in an Openshift Cluster.
+
+xref:02-create-app-crw.adoc[Start this exercise...]
+

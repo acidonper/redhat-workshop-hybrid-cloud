@@ -1,0 +1,6 @@
+* xref:01-setup.adoc[1. Environment Setup]
+** xref:01-setup.adoc#01-prerequisites[1.1 Prerequisites]
+** xref:01-setup.adoc#01-laboratory[1.2 Laboratory]
+*** xref:01-setup.adoc#01-parameters[1.2.1 Parameters]
+*** xref:01-setup.adoc#01-accessoc[1.2.2 Access - OC Client]
+*** xref:01-setup.adoc#01-accessconsole[1.2.3 Access - OCP Console]

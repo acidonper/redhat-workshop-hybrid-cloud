@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Environment Setup :: Red Hat Workshop - Hybrid Cloud App Deployment</title>
+    <title>Create NodeJS application via CodeReady Workspaces :: Red Hat Workshop - Hybrid Cloud App Deployment</title>
     <link rel="canonical" href="http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/02-create-app-crw.html">
+    <link rel="prev" href="01-setup.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -84,12 +85,27 @@
     <a class="nav-link" href="01-setup.html#01-parameters">1.2.1 Parameters</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="01-setup.html#01-accessoc">1.2.2 Access - OC Client</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="01-setup.html#01-accessconsole">1.2.3 Access - OCP Console</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01-setup.html#01-accesscrwconsole">1.2.3 Access - Red Hat CodeReady Workspaces Console</a>
+  </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-create-app-crw.html">2. Create NodeJS application via CodeReady Workspaces</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#02-git">2.1 Create a NodeJS New App GitHub Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#02-crw">2.2 Create NodeJS Application in CodeReady Workspaces</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#02-push">2.3 Push NodeJS Application Source Code to GitHub</a>
   </li>
 </ul>
   </li>
@@ -124,20 +140,354 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Red Hat Workshop - Hybrid Cloud App Deployment</a></li>
-    <li><a href="02-create-app-crw.html">Environment Setup</a></li>
+    <li><a href="02-create-app-crw.html">2. Create NodeJS application via CodeReady Workspaces</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/acidonper/redhat-workshop-hybrid-cloud/edit/master/documentation/modules/ROOT/pages/02-create-app-crw.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Environment Setup</h1>
-<div class="sect1">
-<h2 id="01-prerequisites"><a class="anchor" href="#01-prerequisites"></a>Prerequisites</h2>
+<h1 class="page">Create NodeJS application via CodeReady Workspaces</h1>
+<div id="preamble">
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>In the <em>Create NodeJS application via CodeReady Workspaces</em> step you will create a new NodeJS application which exposes an API in order to resolve GET calls calls providing a custom message.</p>
+</div>
+<div class="paragraph">
+<p>During this section, you will cover the following general steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access Red Hat CodeReady Workspaces Console</p>
+</li>
+<li>
+<p>Init a new <em>NodeJS + Express</em> development environment based on a NodeJs Runtime</p>
+</li>
+<li>
+<p>Create and Test a new NodeJS based application</p>
+</li>
+</ul>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="02-git"><a class="anchor" href="#02-git"></a>Create a NodeJS New App GitHub Repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First of all, it is required to create a new GitHub repository in order to have a public repository which contains your new application source code. Please, follow the next steps to create this repository in your GitHub account in order to be able to operate it freely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Login in <a href="https://github.com">GitHub</a> (<em>*If you don&#8217;t have a GitHub account, please follow the "Sign Up" process</em>)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_login_page.png" alt="github login page">
+</div>
+<div class="title">Figure 1. GitHub Login</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_login_cred.png" alt="github login cred">
+</div>
+<div class="title">Figure 2. GitHub Login Credentials</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a new repository named <strong>"workshop-hybridcloud-nodejs-app"</strong></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_new_repo.png" alt="github new repo">
+</div>
+<div class="title">Figure 3. GitHub Create New Repository</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_new_repo_2.png" alt="github new repo 2">
+</div>
+<div class="title">Figure 4. GitHub Create New Repository Details</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_new_repo_3.png" alt="github new repo 3">
+</div>
+<div class="title">Figure 5. GitHub Create New Repository Created</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="02-crw"><a class="anchor" href="#02-crw"></a>Create NodeJS Application in CodeReady Workspaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First of all, it is required to access ti Red Hat CodeReady Workspaces Console using your the provided credentials via browser in order to create a development environment based on a NodeJS runtime:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to &lt;crw_console_url&gt; (<em>E.g. <a href="https://codeready-openshift-workspaces.apps.hybridworkshop.sandbox507.opentlc.com" class="bare">https://codeready-openshift-workspaces.apps.hybridworkshop.sandbox507.opentlc.com</a></em>)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console.png" alt="ocp console">
+</div>
+<div class="title">Figure 6. CodeReady Workspaces Login</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_console.png" alt="ocp crw console">
+</div>
+<div class="title">Figure 7. CodeReady Workspaces Console</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select a new <em>NodeJS + Express</em> development environment</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_nodejs.png" alt="ocp crw nodejs">
+</div>
+<div class="title">Figure 8. CodeReady Workspaces Runtimes</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Wait for the environment is ready</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_wait.png" alt="ocp crw wait">
+</div>
+<div class="title">Figure 9. CodeReady Workspaces Waiting</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to <em>nodejs-web-app &#8594; app &#8594; app.js</em> and modify "Hello World!" with a custom message (E.g "Hello World - User1 !!")</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_ide.png" alt="ocp crw ide">
+</div>
+<div class="title">Figure 10. CodeReady Workspaces IDE</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_custom.png" alt="ocp crw custom">
+</div>
+<div class="title">Figure 11. CodeReady Workspaces Custom Message</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Save the changes</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_save.png" alt="ocp crw save">
+</div>
+<div class="title">Figure 12. CodeReady Workspaces Custom Message</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to <em>nodejs-web-app &#8594; package.json</em> and add a new script command</p>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "start": "node app/app.js"
+  },
+...</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_package_start.png" alt="ocp crw package start">
+</div>
+<div class="title">Figure 13. CodeReady Workspaces Custom Message</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Save the changes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have your NodeJS project created and configured, it is time to test it locally following the next steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a new terminal, "Terminal &#8594; Open Terminal in specific container &#8594; nodejs"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_new_terminal.png" alt="ocp crw new terminal">
+</div>
+<div class="title">Figure 14. CodeReady Workspaces new Terminal</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Execute the following commands in the terminal</p>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">cd nodejs-web-app/
+npm install
+npm start</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_app_started.png" alt="ocp crw app started">
+</div>
+<div class="title">Figure 15. CodeReady Workspaces Start App</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a new terminal, "Terminal &#8594; Open Terminal in specific container &#8594; nodejs", keeping the previous one</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_new_terminal.png" alt="ocp crw new terminal">
+</div>
+<div class="title">Figure 16. CodeReady Workspaces new Terminal</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test nodejs application via <em>curl</em></p>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">curl localhost:3000</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_curl_3000.png" alt="ocp crw curl 3000">
+</div>
+<div class="title">Figure 17. CodeReady Workspaces test app via curl command</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you click on "Open in New Tab" button which emerged on the left-bottom part of the display, a new web browser tab opens automatically
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_new_tab.png" alt="ocp crw new tab">
+</div>
+<div class="title">Figure 18. CodeReady Workspaces "New Tab"</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_tab.png" alt="ocp crw tab">
+</div>
+<div class="title">Figure 19. CodeReady Workspaces test App via Browser tab</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="02-push"><a class="anchor" href="#02-push"></a>Push NodeJS Application Source Code to GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, it time to push this new NodeJS application to your GitHub repository created in the previous section. In order to complete this task, please follow the next steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to the NodeJS folder from the last terminal opened</p>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">cd nodejs-web-app/</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Execute a set of command referenced in GitHub after creating the new repository</p>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">git init
+git add -A
+git commit -m "first commit"
+git branch -M main
+git remote add origin <a href="https://github.com/autstudent/workshop-hybridcloud-nodejs-app.git" class="bare">https://github.com/autstudent/workshop-hybridcloud-nodejs-app.git</a>
+git push -u origin main</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_crw_code_github_repo.png" alt="ocp crw code github repo">
+</div>
+<div class="title">Figure 20. CodeReady Workspaces NodeJS app pushed to GitHub New Repository</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to GitHub repository page and reload it</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_repo_pushed.png" alt="github repo pushed">
+</div>
+<div class="title">Figure 21. GitHub Code Pushed</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="01-setup.html">1. Environment Setup</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

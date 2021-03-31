@@ -8,6 +8,8 @@ During this section, you will cover the following general steps:
 - Init a new _NodeJS + Express_ development environment based on a NodeJs Runtime
 - Create and Test a new NodeJS based application
 
+Just for being in the same page, _CodeReady Workspaces_ is a collaborative Kubernetes-native solution for rapid application development that delivers consistent developer environments on Red Hat OpenShift to allow anyone with a browser to contribute code in.
+
 include::_attributes.adoc[]
 
 [#02-git]

@@ -87,4 +87,3 @@ image::ocp_console.png[]
 
 .CodeReady Workspaces Console
 image::ocp_crw_console.png[]
-

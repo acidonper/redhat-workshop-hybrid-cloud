@@ -1,3 +1,7 @@
+scripts/users.htpasswd
+scripts/cacert.pem
+scripts/oauth.yaml
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 audit.log

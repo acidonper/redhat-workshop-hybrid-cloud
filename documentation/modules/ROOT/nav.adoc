@@ -3,9 +3,15 @@
 ** xref:01-setup.adoc#01-laboratory[1.2 Laboratory]
 *** xref:01-setup.adoc#01-parameters[1.2.1 Parameters]
 *** xref:01-setup.adoc#01-accessconsole[1.2.3 Access - OCP Console]
-*** xref:01-setup.adoc#01-accesscrwconsole[1.2.3 Access - Red Hat CodeReady Workspaces Console]
+*** xref:01-setup.adoc#01-accesscrwconsole[1.2.4 Access - Red Hat CodeReady Workspaces Console]
 
 * xref:02-create-app-crw.adoc[2. Create NodeJS application via CodeReady Workspaces]
 ** xref:02-create-app-crw.adoc#02-git[2.1 Create a NodeJS New App GitHub Repository]
 ** xref:02-create-app-crw.adoc#02-crw[2.2 Create NodeJS Application in CodeReady Workspaces]
 ** xref:02-create-app-crw.adoc#02-push[2.3 Push NodeJS Application Source Code to GitHub]
+
+* xref:03-create-img-quay.adoc[3. Create NodeJS Application Container Image in Quay]
+** xref:03-create-img-quay.adoc#03-quay[3.1 Create a User in Quay]
+** xref:03-create-img-quay.adoc#03-quayrepo[3.2 Create a New Public Image Repository in Quay]
+** xref:03-create-img-quay.adoc#03-build[3.3 Build NodeJS App Container Image via Openshift Console]
+** xref:03-create-img-quay.adoc#03-test[3.4 Test NodeJS App Container Image Exists]

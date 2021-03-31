@@ -1,0 +1,164 @@
+= Create NodeJS Application Container Image in Quay
+
+In this section, you will create a new NodeJS application container image in Red Hat Quay images repository which exposes a set of public images. These images can be used from different Openshift cluster around the world and support you in your multi cluster application deployment.
+
+During this section, you will cover the following general steps:
+
+- Access Red Hat Quay
+- Create a Quay User
+- Create a public repository
+- Build and push a new container image with NodeJS Application inside
+
+_Red Hat Quay_ is a secure, private container registry that builds, analyzes and distributes container images. It provides a high level of automation and customization. Red Hat Quay is also available as a hosted service called Quay.io.
+
+include::_attributes.adoc[]
+
+[#03-quay]
+== Create a User in Quay
+
+First of all, it is required to access Red Hat Quay console and create a new user. This user will be able to create images repositories, push new images and publish them to Internet easily.
+
+Please, follow the next steps to complete the previous steps:
+
+- Go to <quay_console_url> (_E.g. https://example-registry-quay-quay.apps.hybridworkshop.sandbox507.opentlc.com_)
+
+.Quay Console
+image::quay_console.png[]
+
+- Click on "Create Account" and field the respective fields
+
+.Quay New Account
+image::quay_new_account.png[]
+
+
+[#03-quayrepo]
+== Create a New Public Image Repository in Quay
+
+Once the new user has been created, a new organization appears by default with the same _username_ name. Then, it is time to create a new images repository following the next steps:
+
+- Click on "creating a new repo" in the main Quay page
+
+.Quay New Repository
+image::quay_new_repo.png[]
+
+- Introduce the repository name, "workshop-hybridcloud-nodejs-app", make it public repository and create the new repo clicking "Create Public Repository"
+
+.Quay New Repository Fields
+image::quay_new_repo_fields.png[]
+
+.Quay New Repository Created
+image::quay_new_repo_created.png[]
+
+[#03-build]
+== Build NodeJS App Container Image via Openshift Console
+
+Once your new container image repository is created and published, it is time to build and push the image content to this new repository. 
+
+In order to perform this new task, please follow the next steps:
+
+- Go to the Openshift Console, <ocp_cluster_console> (_E.g. https://console-openshift-console.apps.hybridworkshop.sandbox507.opentlc.com_)
+
+.Openshift Console
+image::ocp_console.png[]
+
+- In your project, go to "Workloads -> Secrets -> Create -> Image Pull Secret"
+
+.Openshift Secrets
+image::ocp_console_secret.png[]
+
+- Introduce the following data
+
+  Secret Name: "quay-creds"
+  Registry Server Name: "<quay_console_url>"
+  Username: "<quay_username>"
+  Password: "<quay_pass>"
+
+.Openshift Secret Creating
+image::ocp_console_secret_add.png[]
+
+.Openshift Quay Secret Created
+image::ocp_console_secret_quay_added.png[]
+
+- Once your quay credentials secret has been created, go to "Builds -> BuildConfig -> Create" in order to add a new _BuildConfig_
+
+.Openshift BuildConfig Creating
+image::ocp_console_bc_add.png[]
+
+- Edit the required YAML file in order to be able to build and publish a new image to your Quay repository
+
+  spec.source.git.uri: <your_nodejs_app_github_repo>
+  spec.output.to.name: <your_nodejs_app_quay_repo>
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: workshop-hybridcloud-nodejs-app
+spec:
+  source:
+    git:
+      ref: main
+      uri: '<your_nodejs_app_github_repo>'
+    type: Git
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'nodejs:latest'
+        namespace: openshift
+      env: []
+  output:
+    pushSecret:
+      name: quay-creds
+    to:
+      kind: DockerImage
+      name: <your_nodejs_app_quay_repo>:latest
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+----
+
+.Openshift BuildConfig Adding
+image::ocp_console_bc_creating.png[]
+
+
+- After your new buildconfig configuration, it is time to run a build clicking on "Actions -> Start Build"
+
+.Openshift BuildConfig Trigger a New Build
+image::ocp_console_bc_new_build.png[]
+
+- Once the new build has been finished, you will see the following output in the build logs
+
+.Openshift BuildConfig New Build Finished
+image::ocp_console_bc_new_build_ok.png[]
+
+[#03-test]
+== Test NodeJS App Container Image Exists
+
+Once the overall previous process has been ended, you will able to see the new image in the quay registry published: 
+
+.Quay Image Published
+image::quay_console_new_img_pushed.png[]
+
+Using this new image, you are able to create a new pod. Please, follow next steps to create a new pod in Openshift:
+
+- Go to "Workloads -> Pods -> Create Pod"
+
+.Openshift Create Pod
+image::ocp_console_pod_new.png[]
+
+- Introduce the image url in the pod description YAML file and 3000 port
+
+.Openshift Pod Settings
+image::ocp_console_pod_new_yaml.png[]
+
+
+- Introduce the image url in the pod description YAML file and 3000 port
+
+.Openshift Pod Created
+image::ocp_console_pod_created.png[]

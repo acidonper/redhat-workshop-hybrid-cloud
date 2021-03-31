@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create NodeJS Application Container Image in Quay :: Red Hat Workshop - Hybrid Cloud App Deployment</title>
+    <link rel="canonical" href="http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/03-create-img-quay.html">
+    <link rel="prev" href="02-create-app-crw.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="http://localhost:3000/rhs-build-course/index.html">Red Hat Workshop - Hybrid Cloud App Deployment</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="redhat-workshop-hybrid-cloud" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Red Hat Workshop - Hybrid Cloud App Deployment</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Environment Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#01-prerequisites">1.1 Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-setup.html#01-laboratory">1.2 Laboratory</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01-setup.html#01-parameters">1.2.1 Parameters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01-setup.html#01-accessconsole">1.2.3 Access - OCP Console</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01-setup.html#01-accesscrwconsole">1.2.4 Access - Red Hat CodeReady Workspaces Console</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-create-app-crw.html">2. Create NodeJS application via CodeReady Workspaces</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-create-app-crw.html#02-git">2.1 Create a NodeJS New App GitHub Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-create-app-crw.html#02-crw">2.2 Create NodeJS Application in CodeReady Workspaces</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-create-app-crw.html#02-push">2.3 Push NodeJS Application Source Code to GitHub</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-create-img-quay.html">3. Create NodeJS Application Container Image in Quay</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#03-quay">3.1 Create a User in Quay</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#03-quayrepo">3.2 Create a New Public Image Repository in Quay</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#03-build">3.3 Build NodeJS App Container Image via Openshift Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#03-test">3.4 Test NodeJS App Container Image Exists</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Red Hat Workshop - Hybrid Cloud App Deployment</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Red Hat Workshop - Hybrid Cloud App Deployment</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Red Hat Workshop - Hybrid Cloud App Deployment</a></li>
+    <li><a href="03-create-img-quay.html">3. Create NodeJS Application Container Image in Quay</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/acidonper/redhat-workshop-hybrid-cloud/edit/master/documentation/modules/ROOT/pages/03-create-img-quay.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Create NodeJS Application Container Image in Quay</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, you will create a new NodeJS application container image in Red Hat Quay images repository which exposes a set of public images. These images can be used from different Openshift cluster around the world and support you in your multi cluster application deployment.</p>
+</div>
+<div class="paragraph">
+<p>During this section, you will cover the following general steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access Red Hat Quay</p>
+</li>
+<li>
+<p>Create a Quay User</p>
+</li>
+<li>
+<p>Create a public repository</p>
+</li>
+<li>
+<p>Build and push a new container image with NodeJS Application inside</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Red Hat Quay</em> is a secure, private container registry that builds, analyzes and distributes container images. It provides a high level of automation and customization. Red Hat Quay is also available as a hosted service called Quay.io.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="03-quay"><a class="anchor" href="#03-quay"></a>Create a User in Quay</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First of all, it is required to access Red Hat Quay console and create a new user. This user will be able to create images repositories, push new images and publish them to Internet easily.</p>
+</div>
+<div class="paragraph">
+<p>Please, follow the next steps to complete the previous steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to &lt;quay_console_url&gt; (<em>E.g. <a href="https://example-registry-quay-quay.apps.hybridworkshop.sandbox507.opentlc.com" class="bare">https://example-registry-quay-quay.apps.hybridworkshop.sandbox507.opentlc.com</a></em>)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_console.png" alt="quay console">
+</div>
+<div class="title">Figure 1. Quay Console</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on "Create Account" and field the respective fields</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_new_account.png" alt="quay new account">
+</div>
+<div class="title">Figure 2. Quay New Account</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="03-quayrepo"><a class="anchor" href="#03-quayrepo"></a>Create a New Public Image Repository in Quay</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the new user has been created, a new organization appears by default with the same <em>username</em> name. Then, it is time to create a new images repository following the next steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on "creating a new repo" in the main Quay page</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_new_repo.png" alt="quay new repo">
+</div>
+<div class="title">Figure 3. Quay New Repository</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce the repository name, "workshop-hybridcloud-nodejs-app", make it public repository and create the new repo clicking "Create Public Repository"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_new_repo_fields.png" alt="quay new repo fields">
+</div>
+<div class="title">Figure 4. Quay New Repository Fields</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_new_repo_created.png" alt="quay new repo created">
+</div>
+<div class="title">Figure 5. Quay New Repository Created</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="03-build"><a class="anchor" href="#03-build"></a>Build NodeJS App Container Image via Openshift Console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once your new container image repository is created and published, it is time to build and push the image content to this new repository.</p>
+</div>
+<div class="paragraph">
+<p>In order to perform this new task, please follow the next steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to the Openshift Console, &lt;ocp_cluster_console&gt; (<em>E.g. <a href="https://console-openshift-console.apps.hybridworkshop.sandbox507.opentlc.com" class="bare">https://console-openshift-console.apps.hybridworkshop.sandbox507.opentlc.com</a></em>)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console.png" alt="ocp console">
+</div>
+<div class="title">Figure 6. Openshift Console</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In your project, go to "Workloads &#8594; Secrets &#8594; Create &#8594; Image Pull Secret"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_secret.png" alt="ocp console secret">
+</div>
+<div class="title">Figure 7. Openshift Secrets</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce the following data</p>
+<div class="literalblock">
+<div class="content">
+<pre>Secret Name: "quay-creds"
+Registry Server Name: "&lt;quay_console_url&gt;"
+Username: "&lt;quay_username&gt;"
+Password: "&lt;quay_pass&gt;"</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_secret_add.png" alt="ocp console secret add">
+</div>
+<div class="title">Figure 8. Openshift Secret Creating</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_secret_quay_added.png" alt="ocp console secret quay added">
+</div>
+<div class="title">Figure 9. Openshift Quay Secret Created</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Once your quay credentials secret has been created, go to "Builds &#8594; BuildConfig &#8594; Create" in order to add a new <em>BuildConfig</em></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_bc_add.png" alt="ocp console bc add">
+</div>
+<div class="title">Figure 10. Openshift BuildConfig Creating</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edit the required YAML file in order to be able to build and publish a new image to your Quay repository</p>
+<div class="literalblock">
+<div class="content">
+<pre>spec.source.git.uri: &lt;your_nodejs_app_github_repo&gt;
+spec.output.to.name: &lt;your_nodejs_app_quay_repo&gt;</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-input hljs" data-lang="input">apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: workshop-hybridcloud-nodejs-app
+spec:
+  source:
+    git:
+      ref: main
+      uri: '&lt;your_nodejs_app_github_repo&gt;'
+    type: Git
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'nodejs:latest'
+        namespace: openshift
+      env: []
+  output:
+    pushSecret:
+      name: quay-creds
+    to:
+      kind: DockerImage
+      name: &lt;your_nodejs_app_quay_repo&gt;:latest
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_bc_creating.png" alt="ocp console bc creating">
+</div>
+<div class="title">Figure 11. Openshift BuildConfig Adding</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After your new buildconfig configuration, it is time to run a build clicking on "Actions &#8594; Start Build"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_bc_new_build.png" alt="ocp console bc new build">
+</div>
+<div class="title">Figure 12. Openshift BuildConfig Trigger a New Build</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Once the new build has been finished, you will see the following output in the build logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_bc_new_build_ok.png" alt="ocp console bc new build ok">
+</div>
+<div class="title">Figure 13. Openshift BuildConfig New Build Finished</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="03-test"><a class="anchor" href="#03-test"></a>Test NodeJS App Container Image Exists</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the overall previous process has been ended, you will able to see the new image in the quay registry published:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/quay_console_new_img_pushed.png" alt="quay console new img pushed">
+</div>
+<div class="title">Figure 14. Quay Image Published</div>
+</div>
+<div class="paragraph">
+<p>Using this new image, you are able to create a new pod. Please, follow next steps to create a new pod in Openshift:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to "Workloads &#8594; Pods &#8594; Create Pod"</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_pod_new.png" alt="ocp console pod new">
+</div>
+<div class="title">Figure 15. Openshift Create Pod</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce the image url in the pod description YAML file and 3000 port</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_pod_new_yaml.png" alt="ocp console pod new yaml">
+</div>
+<div class="title">Figure 16. Openshift Pod Settings</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce the image url in the pod description YAML file and 3000 port</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ocp_console_pod_created.png" alt="ocp console pod created">
+</div>
+<div class="title">Figure 17. Openshift Pod Created</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-create-app-crw.html">2. Create NodeJS application via CodeReady Workspaces</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

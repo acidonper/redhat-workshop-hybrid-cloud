@@ -4,7 +4,7 @@ runtime:
 site:
   title: Red Hat Workshop - Hybrid Cloud App Deployment
   url: http://localhost:3000/rhs-build-course/index.html
-  start_page: redhat-workshop-cicd-gitops::index.adoc
+  start_page: redhat-workshop-hybrid-cloud::index.adoc
 
 content:
   sources:

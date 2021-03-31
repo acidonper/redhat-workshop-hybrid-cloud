@@ -67,11 +67,24 @@ The following table includes the parameters that the Instructor should provide y
 [#01-accessconsole]
 === Access - OCP Console
 
-In addition, access Openshift Console using your credentials via browser in order to check connectivity and accessibility to the console:
+First of all, access Openshift Console using your credentials via browser in order to check connectivity and accessibility to the console:
 
 - <ocp_cluster_console> (_E.g. https://console-openshift-console.apps.hybridworkshop.sandbox507.opentlc.com_)
 
 .Openshift Console
 image::ocp_console.png[]
 
+
+[#02-accesscrwconsole]
+=== Access - Red Hat CodeReady Workspaces Console
+
+On the other hand, access Red Hat CodeReady Workspaces Console using your credentials via browser in order to check connectivity and accessibility to the console:
+
+- <crw_console_url> (_E.g. https://codeready-openshift-workspaces.apps.hybridworkshop.sandbox507.opentlc.com_)
+
+.CodeReady Workspaces Login
+image::ocp_console.png[]
+
+.CodeReady Workspaces Console
+image::ocp_crw_console.png[]
 

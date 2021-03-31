@@ -1,6 +1,172 @@
-= Environment Setup
+= Create NodeJS application via CodeReady Workspaces
+
+In the _Create NodeJS application via CodeReady Workspaces_ step you will create a new NodeJS application which exposes an API in order to resolve GET calls calls providing a custom message. 
+
+During this section, you will cover the following general steps:
+
+- Access Red Hat CodeReady Workspaces Console
+- Init a new _NodeJS + Express_ development environment based on a NodeJs Runtime
+- Create and Test a new NodeJS based application
 
 include::_attributes.adoc[]
 
-[#01-prerequisites]
-== Prerequisites
+[#02-git]
+== Create a NodeJS New App GitHub Repository
+
+First of all, it is required to create a new GitHub repository in order to have a public repository which contains your new application source code. Please, follow the next steps to create this repository in your GitHub account in order to be able to operate it freely:
+
+- Login in https://github.com[GitHub] (_*If you don't have a GitHub account, please follow the "Sign Up" process_)
+
+.GitHub Login
+image::github_login_page.png[]
+
+.GitHub Login Credentials
+image::github_login_cred.png[]
+
+- Create a new repository named **"workshop-hybridcloud-nodejs-app"**
+
+.GitHub Create New Repository
+image::github_new_repo.png[]
+
+.GitHub Create New Repository Details
+image::github_new_repo_2.png[]
+
+.GitHub Create New Repository Created
+image::github_new_repo_3.png[]
+
+[#02-crw]
+== Create NodeJS Application in CodeReady Workspaces
+
+First of all, it is required to access ti Red Hat CodeReady Workspaces Console using your the provided credentials via browser in order to create a development environment based on a NodeJS runtime:
+
+- Go to <crw_console_url> (_E.g. https://codeready-openshift-workspaces.apps.hybridworkshop.sandbox507.opentlc.com_)
+
+.CodeReady Workspaces Login
+image::ocp_console.png[]
+
+.CodeReady Workspaces Console
+image::ocp_crw_console.png[]
+
+- Select a new _NodeJS + Express_ development environment
+
+.CodeReady Workspaces Runtimes
+image::ocp_crw_nodejs.png[]
+
+- Wait for the environment is ready
+
+.CodeReady Workspaces Waiting
+image::ocp_crw_wait.png[]
+
+- Go to _nodejs-web-app -> app -> app.js_ and modify "Hello World!" with a custom message (E.g "Hello World - User1 !!")
+
+.CodeReady Workspaces IDE
+image::ocp_crw_ide.png[]
+
+.CodeReady Workspaces Custom Message
+image::ocp_crw_custom.png[]
+
+- Save the changes
+
+.CodeReady Workspaces Custom Message
+image::ocp_crw_save.png[]
+
+- Go to _nodejs-web-app -> package.json_ and add a new script command
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/app.js"
+  },
+...
+----
+
+.CodeReady Workspaces Custom Message
+image::ocp_crw_package_start.png[]
+
+- Save the changes
+
+Once you have your NodeJS project created and configured, it is time to test it locally following the next steps:
+
+- Open a new terminal, "Terminal -> Open Terminal in specific container -> nodejs"
+
+.CodeReady Workspaces new Terminal
+image::ocp_crw_new_terminal.png[]
+
+- Execute the following commands in the terminal
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+cd nodejs-web-app/
+npm install
+npm start
+----
+
+.CodeReady Workspaces Start App
+image::ocp_crw_app_started.png[]
+
+- Open a new terminal, "Terminal -> Open Terminal in specific container -> nodejs", keeping the previous one
+
+.CodeReady Workspaces new Terminal
+image::ocp_crw_new_terminal.png[]
+
+- Test nodejs application via _curl_
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+curl localhost:3000
+----
+
+.CodeReady Workspaces test app via curl command
+image::ocp_crw_curl_3000.png[]
+
+NOTE: If you click on "Open in New Tab" button which emerged on the left-bottom part of the display, a new web browser tab opens automatically 
+
+.CodeReady Workspaces "New Tab"
+image::ocp_crw_new_tab.png[]
+
+.CodeReady Workspaces test App via Browser tab
+image::ocp_crw_tab.png[]
+
+[#02-push]
+== Push NodeJS Application Source Code to GitHub
+
+Finally, it time to push this new NodeJS application to your GitHub repository created in the previous section. In order to complete this task, please follow the next steps:
+ 
+- Go to the NodeJS folder from the last terminal opened
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+cd nodejs-web-app/
+----
+
+- Execute a set of command referenced in GitHub after creating the new repository
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+git init
+git add -A
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/autstudent/workshop-hybridcloud-nodejs-app.git
+git push -u origin main
+----
+
+.CodeReady Workspaces NodeJS app pushed to GitHub New Repository
+image::ocp_crw_code_github_repo.png[]
+
+- Go to GitHub repository page and reload it
+
+.GitHub Code Pushed
+image::github_repo_pushed.png[]

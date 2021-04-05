@@ -15,3 +15,8 @@
 ** xref:03-create-img-quay.adoc#03-quayrepo[3.2 Create a New Public Image Repository in Quay]
 ** xref:03-create-img-quay.adoc#03-build[3.3 Build NodeJS App Container Image via Openshift Console]
 ** xref:03-create-img-quay.adoc#03-test[3.4 Test NodeJS App Container Image Exists]
+
+* xref:04-deploy-app-ocp.adoc[4. Deploy NodeJS Application in Multiple Openshift Clusters]
+** xref:04-deploy-app-ocp.adoc#04-rhacm[4.1 Access Red Hat Advanced Cluster Management Console]
+** xref:04-deploy-app-ocp.adoc#04-rhacmapp[4.2 Deploy NodeJS App via Red Hat Advanced Cluster Management]
+** xref:04-deploy-app-ocp.adoc#04-rhacmapprun[4.3 Test NodeJS App deployed via Red Hat Advanced Cluster Management]

@@ -74,7 +74,6 @@ First of all, access Openshift Console using your credentials via browser in ord
 .Openshift Console
 image::ocp_console.png[]
 
-
 [#02-accesscrwconsole]
 === Access - Red Hat CodeReady Workspaces Console
 

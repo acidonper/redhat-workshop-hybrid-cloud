@@ -1,0 +1,165 @@
+= Deploy NodeJS Application in Multiple Openshift Clusters
+
+In this section, you will deploy your NodeJS application in a set of Openshift Clusters using Red Hat Advanced Cluster Management as single administration point.
+
+During this section, you will cover the following general steps:
+
+- Access Red Hat Advanced Cluster Management 
+- Create an automation procedure based in Helm
+- Create an application based on your Helm automatism and the NodeJS repository
+
+Just as information, _Red Hat Advanced Cluster Management_ for Kubernetes controls clusters and applications from a single console, with built-in security policies. Extend the value of Red Hat OpenShift by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale.
+
+include::_attributes.adoc[]
+
+[#04-rhacm]
+== Access Red Hat Advanced Cluster Management Console
+
+First of all, it is required to access _Red Hat Advanced Cluster Management_ console in order to be able to deploy Kubernetes objects in multiple Openshift clusters at the same time. 
+
+- Go to <acm_console_url> (_E.g. https://multicloud-console.apps.hybridworkshop.sandbox507.opentlc.com_)
+
+.Red Hat Advanced Cluster Management Console
+image::rhacm_console.png[]
+
+[#04-rhacmapp]
+== Deploy NodeJS App via Red Hat Advanced Cluster Management
+
+Once a user has access to the _Red Hat Advanced Cluster Management_ console and a specific namespace to create Kubernetes objects, it is time to create a set of objects in the respective Openshift clusters in order to run the NodeJS new application in a multicluster way.
+
+Please, follow the next steps to complete the previous objective:
+
+- Create a set of _Deployments_ in the Openshift available clusters replacing the following data
+
+  metadata.namespace: <user_namespace>
+  spec.template.spec.containers[0].image: <your_nodejs_app_quay_repo>
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  namespace: <user_namespace>
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        name: nodejs-app
+        app: nodejs-app
+    spec:
+      containers:
+      - image: <your_nodejs_app_quay_repo>:latest
+        imagePullPolicy: Always
+        name: nodejs-app
+        ports:
+          - containerPort: 3000
+            protocol: TCP
+----
+
+.Red Hat Advanced Cluster Management Add Objects
+image::rhacm_console_add.png[]
+
+.RHACM Create Deployment
+image::rhacm_deployment_add.png[]
+
+- Create a set of _Service_ in the Openshift clusters available replacing the following data
+
+  metadata.namespace: <user_namespace>
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-app
+  namespace: <user_namespace>
+spec:
+  ports:
+    - name: http-3000
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: nodejs-app
+----
+
+.Red Hat Advanced Cluster Management Add Objects
+image::rhacm_console_add.png[]
+
+.RHACM Create Service
+image::rhacm_service_add.png[]
+
+- Create a set of _Routes_ in the Openshift clusters available replacing the following data
+
+  metadata.namespace: <user_namespace>
+
+[.lines_7]
+[.console-input]
+[source,input,subs="+macros,+attributes"]
+----
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nodejs-app
+  namespace: <user_namespace>
+spec:
+  to:
+    kind: Service
+    name: nodejs-app
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+----
+
+.Red Hat Advanced Cluster Management Add Objects
+image::rhacm_console_add.png[]
+
+.RHACM Create Route
+image::rhacm_route_add.png[]
+
+[#04-rhacmapprun]
+== Test NodeJS App deployed via Red Hat Advanced Cluster Management
+
+Once the required objects have been created in the _Red Hat Advanced Cluster Management_ console, it is required to ensure the new application is running in the respective Openshift Cluster. During this section, you will be able to review NodeJS app status in a set of Openshift Clusters.
+
+First of all, _Red Hat Advanced Cluster Management_ provides a set of dashboards and overviews in order to allow users to view and check Kubernetes objects status in multiple clusters from a single point of administration. You are able to view at least the following information from these dashboards:
+
+- Openshift Clusters configuration and state
+- Openshift Clusters objects providing a search tool
+- _Red Hat Advanced Cluster Management_ Apps deployed by Helm or different automated processes
+- Governance state of your clusters
+- Etc
+
+Please, follow the next steps to find information about kubernetes objects created before and try NodeJS application access:
+
+- Go to Home -> Observe Environments -> Overview
+
+.Red Hat Advanced Cluster Management Home
+image::rhacm_console_home.png[]
+
+- Review the search tool accessing to kubernetes objects summary and click on _Route_ objects (_You have to repeat this operation per each Openshift Cluster_)
+
+.Red Hat Advanced Cluster Management Search Summary
+image::rhacm_console_summary.png[]
+
+- Review the route object in order to obtain the url
+
+.Red Hat Advanced Cluster Management Route Summary
+image::rhacm_console_summary_route.png[]
+
+- Finally, access to the route url via Web Browser
+
+.Red Hat Advanced Cluster Management Route Summary
+image::rhacm_console_summary_route_browser.png[]

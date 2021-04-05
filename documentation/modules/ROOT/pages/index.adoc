@@ -30,3 +30,15 @@ In this step, you will create an application in Red Hat CodeReady Workspaces dep
 
 xref:02-create-app-crw.adoc[Start this exercise...]
 
+=== Create NodeJS Application Container Image in Quay
+
+In this section, you will create a new NodeJS application container image in Red Hat Quay images repository which exposes a set of public images. These images can be used from different Openshift cluster around the world and support you in your multi cluster application deployment.
+
+xref:03-create-img-quay.adoc[Start this exercise...]
+
+
+=== Deploy NodeJS Application in Multiple Openshift Clusters
+
+In this step, you will deploy your NodeJS application in a set of Openshift Clusters using Red Hat Advanced Cluster Management as single administration point.
+
+xref:04-deploy-app-ocp.adoc[Start this exercise...]

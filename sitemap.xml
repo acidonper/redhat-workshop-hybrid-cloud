@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/01-setup.html</loc>
-<lastmod>2021-03-31T14:54:48.019Z</lastmod>
+<lastmod>2021-04-05T11:27:07.350Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/02-create-app-crw.html</loc>
-<lastmod>2021-03-31T14:54:48.019Z</lastmod>
+<lastmod>2021-04-05T11:27:07.350Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/03-create-img-quay.html</loc>
-<lastmod>2021-03-31T14:54:48.019Z</lastmod>
+<lastmod>2021-04-05T11:27:07.350Z</lastmod>
+</url>
+<url>
+<loc>http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/04-deploy-app-ocp.html</loc>
+<lastmod>2021-04-05T11:27:07.350Z</lastmod>
 </url>
 <url>
 <loc>http://localhost:3000/rhs-build-course/index.html/redhat-workshop-hybrid-cloud/index.html</loc>
-<lastmod>2021-03-31T14:54:48.019Z</lastmod>
+<lastmod>2021-04-05T11:27:07.350Z</lastmod>
 </url>
 </urlset>
